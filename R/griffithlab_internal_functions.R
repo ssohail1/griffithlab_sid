@@ -33,6 +33,7 @@
 #' # score_surveys(rrs, 10)
 #' # score_surveys(rrs, 8)
 #' @keywords internal
+#' @noRd
 score_surveys <- function (items, min_num_items = ncol(items)) {
   # Handle some possible errors
   if (!is.data.frame(items)) {
