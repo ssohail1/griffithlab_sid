@@ -1,5 +1,5 @@
 #' Scores the System Usability Scale (SUS; all 10 items)
-#' 
+#'
 #' @description Scores the 10-item System Usability Scale (SUS)
 #' The ten items are 1, 2, 3, 4, 5 coded in the following way:\cr
 #' 1 = Strongly Disagree\cr
@@ -31,18 +31,18 @@
 
 score_sus <- function(sus_items,
                       min_num_items = 10) {
-  
+
   sus_range <- 1:5L
-  
+
   n_sus_items <- 10
-  
+
   if(ncol(sus_items) != n_sus_items) {
     stop("The SUS has",
          n_sus_items,
          "items, so there should be",
          n_sus_items, "columns in sus_items.")
   }
-  
+
   if(min_num_items > n_sus_items) {
     stop("The SUS has",
          n_sus_items,
@@ -50,42 +50,42 @@ score_sus <- function(sus_items,
          n_sus_items,
          "or smaller.")
   }
-  
+
   if(min_num_items < 1) {
     stop("min_num_items must be greater than 0.")
   }
-  
+
   sus_items <- as.matrix(sus_items)
-  
-  sus_items[which(!sus_items %in% rrs_range,
+
+  sus_items[which(!sus_items %in% sus_range,
                   arr.ind = TRUE)] <- NA
-  
+
   if(all(is.na(sus_items))) {
     message("All items are missing in sus_items.\n")
     message("Check your input.\n")
   } else if (any(is.na(sus_items))) {
     message("Some items are missing in sus_items.\n")
   }
-  
+
   if(min_num_items < n_sus_items && !all(is.na(sus_items))) {
     message("Scoring will use prorating if some items are missing.\n")
     message(paste("If you do not want to prorate scores, set min_num_items to",
                   n_sus_items))
   }
- 
+
   # For items 1,3,5,7,and 9 the score contribution is the scale position minus 1.
   # For items 2,4,6,8 and 10, the contribution is 5 minus the scale position.
   # Multiply the sum of the scores by 2.5 to obtain the overall value of SU.
-  
+
   recoded_sus <- matrix(nrow = nrow(sus_items),
                         ncol = ncol(sus_items))
-  
+
   recoded_sus[, c(1, 3, 5, 7, 9)] <- sus_items[, c(1, 3, 5, 7, 9)] - 1
   recoded_sus[, c(2, 4, 6, 8, 10)] <- 5 - sus_items[, c(2, 4, 6, 8, 10)]
-   
+
   recoded_sus <- as.data.frame(recoded_sus)
-  
+
   # Return output
   2.5 * score_surveys(recoded_sus, min_num_items)
-  
+
 }
