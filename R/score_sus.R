@@ -13,7 +13,9 @@
 #'
 #' @param sus_items A matrix (or an object coercible to a matrix) that contains
 #' the items of the System Usability Scale (SUS), with each item
-#' represented as a number, 1, 2, 3, 4, or 5.
+#' represented as a number, 1, 2, 3, 4, or 5. If sus_items is a single vector,
+#' it will be transposed to a single-row matrix.
+#'
 #' @param min_num_items The minimum number of items needed to be non-missing
 #' in order for a score to be given. If the number of non-missing items is
 #' less than min_num_items, then the score will be NA. Otherwise, in the
@@ -31,6 +33,12 @@
 
 score_sus <- function(sus_items,
                       min_num_items = 10) {
+
+  # If a single vector is supplied, convert it to a data frame
+  if(is.vector(sus_items) & length(sus_items) == 10) {
+    return(score_sus(t(sus_items),
+                     min_num_items = min_num_items))
+  }
 
   sus_range <- 1:5L
 

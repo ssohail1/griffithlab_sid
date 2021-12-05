@@ -1,0 +1,33 @@
+#' Takes a variable on a theta (i.e., standardised or z-score metric) and
+#' converts it to T score (mean = 50, SD = 10 by definition)
+#'
+#' @description This function takes theta values on a standardised z-score
+#' metric (i.e., mean = 0, standard deviation = 1 by definition) and converts
+#' it to a T score metric (i.e., mean = 50, standard deviation = 10 by
+#' definition).
+#'
+#' @param theta Values of theta on a z-score metric. theta must be numeric
+#' or coercible to numeric. Factors are not allowed.
+#'
+#' @return T scores
+#'
+#' @export
+#'
+#' @examples
+#'\dontrun{
+#'
+#' theta_to_T(c(-3, 0, 3))
+#'
+#' }
+theta_to_T <- function(theta) {
+
+  if (any(is.factor(theta))) {
+    stop("Factors are not allowed. Please try again.")
+  }
+
+  theta <- as.numeric(theta)
+
+  # Return output
+  theta * 10 + 50
+
+}

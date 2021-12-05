@@ -9,7 +9,8 @@ score_sus(sus_items, min_num_items = 10)
 \arguments{
 \item{sus_items}{A matrix (or an object coercible to a matrix) that contains
 the items of the System Usability Scale (SUS), with each item
-represented as a number, 1, 2, 3, 4, or 5.}
+represented as a number, 1, 2, 3, 4, or 5. If sus_items is a single vector,
+it will be transposed to a single-row matrix.}
 
 \item{min_num_items}{The minimum number of items needed to be non-missing
 in order for a score to be given. If the number of non-missing items is

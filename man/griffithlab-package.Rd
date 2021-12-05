@@ -6,8 +6,7 @@
 \alias{griffithlab-package}
 \title{griffithlab: Tools for the lab of Jamie Griffith}
 \description{
-Assorted analysis tools.
-    Scoring algorithms, etc.
+Assorted analysis tools. Scoring algorithms, etc.
 }
 \section{Words of inspiration}{
 

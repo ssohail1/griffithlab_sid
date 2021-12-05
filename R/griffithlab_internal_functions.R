@@ -48,8 +48,11 @@ score_surveys <- function (items, min_num_items = ncol(items)) {
   # Done handling errors, so apply scoring algorithm below.
   apply(X = items,
         MARGIN = 1,
-        FUN = function(one_survey)
-          ifelse(test = sum(!is.na(one_survey)) >= min_num_items,
-                 yes = length(one_survey) * mean(one_survey, na.rm = TRUE),
-                 no = NA))
+        FUN = function(one_survey) {
+          if(sum(!is.na(one_survey)) >= min_num_items){
+            length(one_survey) * mean(one_survey, na.rm = TRUE)
+          } else {
+            NA
+          }
+        })
 }
