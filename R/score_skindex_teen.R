@@ -31,11 +31,11 @@
 
 score_skindex_teen <- function(items,
                       min_prop = 1.0) {
-  
+
   item_range <- 0:4L
-  
+
   n_items <- 21L
-  
+
   # Check for input errors
   if (ncol(items) != n_items) {
     stop("The Skindex-Teen has",
@@ -44,49 +44,49 @@ score_skindex_teen <- function(items,
          n_items, "columns in items.",
          "\nPlease try again.")
   }
-  
+
   if (min_prop < 0 || min_prop > 1) {
     stop("min_prop must be between 0-1. \nPlease try again.")
   }
-  
+
   items <- as.matrix(items)
-  
+
   items[which(!items %in% item_range,
                   arr.ind = TRUE)] <- NA
-  
+
   if (all(is.na(items))) {
     message("All items are missing.\n")
     message("Check your input.\n")
   } else if (any(is.na(items))) {
     message("Some items are missing in Skindex-Teen items.\n")
   }
-  
+
   if (min_prop < 1 && any(is.na(items))) {
     message("Scoring will use prorating if some items are missing.\n")
     message("If you do not want to prorate scores, set min_prop to 1.0")
   }
-  
+
   items <- as.data.frame(items, drop = FALSE)
-  
+
   # Note - There is one item from the 22-item prototype in Smidt et al.
   # that is not used in the scoring. Only the 21 items are considered here.
-  
+
   # Item column indices
   skindex_teen_total <- 1:21
-  
+
     # Skindex Teen Physical Symptoms (ps)
   # Item column indices
   skindex_teen_ps <- c(1, 2, 7, 10, 18)
-  
+
   # Skindex Teen Psychosocial Functioning (pf)
   # Item column names
-  skindex_pf <- c(3, 4, 5, 6, 8, 9, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21)
-  
+  skindex_teen_pf <- c(3, 4, 5, 6, 8, 9, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21)
+
   total <- score_surveys(items[skindex_teen_total], ceiling(min_prop * n_items))
   ps <- score_surveys(items[skindex_teen_ps], ceiling(min_prop * 5))
   pf <- score_surveys(items[skindex_teen_pf], ceiling(min_prop * 16))
-  
+
   data.frame(total = total, ps = ps, pf = pf)
-  
+
 }
 
