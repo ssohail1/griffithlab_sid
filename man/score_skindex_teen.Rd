@@ -5,7 +5,7 @@
 \title{Scores the Skindex-Teen questionnaire using only the 21 scored items
 from the Smidt et al. paper (cf., Table 1 of doi:10.1001/archdermatol.2010.161)}
 \usage{
-score_skindex_teen(items, min_prop = 1)
+score_skindex_teen(items, min_prop = 1, skindex_teen_names = NULL)
 }
 \arguments{
 \item{items}{A matrix (or an object coercible to a matrix) that contains
@@ -19,6 +19,9 @@ less than min_prop, then the score will be NA. Otherwise, in the
 presence of missing data, prorating will be used. With prorating, the score
 is calculated as (# of scale items * mean item response) The default for this
 algorithm is min_prop = 1.0.}
+
+\item{skindex_teen_names}{If left NULL, by default names in the output
+will be "skindex_teen_total", "skindex_teen_ps", and "skindex_teen_pf"}
 }
 \value{
 Scores for the Skindex-Teen Total,

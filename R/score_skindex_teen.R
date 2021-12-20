@@ -20,6 +20,9 @@
 #' is calculated as (# of scale items * mean item response) The default for this
 #' algorithm is min_prop = 1.0.
 #'
+#' @param skindex_teen_names If left NULL, by default names in the output
+#'  will be "skindex_teen_total", "skindex_teen_ps", and "skindex_teen_pf"
+#'
 #' @return Scores for the Skindex-Teen Total,
 #' Physical Symptoms (ps) and Psychosocial Functioning (pf).
 #' @export
@@ -30,7 +33,18 @@
 #' }
 
 score_skindex_teen <- function(items,
-                      min_prop = 1.0) {
+                      min_prop = 1.0,
+                      skindex_teen_names = NULL) {
+
+  if (is.vector(items)) {
+
+    # Convert items to 1 x 21 dataframe
+    items <- as.data.frame(t(items))
+
+    return(score_skindex_teen(items,
+                              min_prop = min_prop,
+                              skindex_teen_names = skindex_teen_names))
+    }
 
   item_range <- 0:4L
 
@@ -38,16 +52,29 @@ score_skindex_teen <- function(items,
 
   # Check for input errors
   if (ncol(items) != n_items) {
-    stop("The Skindex-Teen has",
+
+    stop("The Skindex-Teen has ",
          n_items,
-         "items, so there should be",
-         n_items, "columns in items.",
+         "items, so there should be ",
+         n_items, " columns in items.",
          "\nPlease try again.")
+
   }
 
   if (min_prop < 0 || min_prop > 1) {
+
     stop("min_prop must be between 0-1. \nPlease try again.")
-  }
+
+    }
+
+  if(!is.null(skindex_teen_names) && length(skindex_teen_names) != 3) {
+
+    stop("\nIf you wish to use user-supplied names, please supply a charachter vector with the three names.",
+         "\nFor example, c(\"total\", \"ps\", \"pf\")")
+
+    }
+
+  # Done checking for errors in input
 
   items <- as.matrix(items)
 
@@ -55,16 +82,21 @@ score_skindex_teen <- function(items,
                   arr.ind = TRUE)] <- NA
 
   if (all(is.na(items))) {
+
     message("All items are missing.\n")
     message("Check your input.\n")
   } else if (any(is.na(items))) {
+
     message("Some items are missing in Skindex-Teen items.\n")
+
   }
 
   if (min_prop < 1 && any(is.na(items))) {
+
     message("Scoring will use prorating if some items are missing.\n")
     message("If you do not want to prorate scores, set min_prop to 1.0")
-  }
+
+    }
 
   items <- as.data.frame(items, drop = FALSE)
 
@@ -74,7 +106,7 @@ score_skindex_teen <- function(items,
   # Item column indices
   skindex_teen_total <- 1:21
 
-    # Skindex Teen Physical Symptoms (ps)
+  # Skindex Teen Physical Symptoms (ps)
   # Item column indices
   skindex_teen_ps <- c(1, 2, 7, 10, 18)
 
@@ -86,7 +118,16 @@ score_skindex_teen <- function(items,
   ps <- score_surveys(items[skindex_teen_ps], ceiling(min_prop * 5))
   pf <- score_surveys(items[skindex_teen_pf], ceiling(min_prop * 16))
 
-  data.frame(total = total, ps = ps, pf = pf)
+  skindex_teen <- data.frame(skindex_teen_total = total,
+                             skindex_teen_ps = ps,
+                             skindex_teen_pf = pf)
+
+  if(!is.null(skindex_teen_names)) {
+
+    colnames(skindex_teen) <- skindex_teen_names
+
+    }
+
+  return(skindex_teen)
 
 }
-
