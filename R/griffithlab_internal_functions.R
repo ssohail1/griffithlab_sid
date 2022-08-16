@@ -56,3 +56,14 @@ score_surveys <- function (items, min_num_items = ncol(items)) {
           }
         })
 }
+
+
+# Count non-NA values row-by-row ------------------------------------------
+
+count_not_na <- function(items) {
+  apply(items,
+        1,
+        function(x) {
+          sum(!is.na(x))
+        })
+}
