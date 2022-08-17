@@ -99,6 +99,7 @@ score_pfdi <- function(input,
 
   pfdi_sum <- popdi6 + crad8 + udi6
 
+  # Return output
   data.frame(input[transfer_vars], popdi6, crad8, udi6, pfdi_sum)
 
 }
