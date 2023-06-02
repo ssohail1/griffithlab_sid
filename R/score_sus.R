@@ -45,18 +45,18 @@ score_sus <- function(sus_items,
   n_sus_items <- 10
 
   if(ncol(sus_items) != n_sus_items) {
-    stop("The SUS has",
+    stop("The SUS has ",
          n_sus_items,
-         "items, so there should be",
-         n_sus_items, "columns in sus_items.")
+         " items, so there should be ",
+         n_sus_items, " columns in sus_items.")
   }
 
   if(min_num_items > n_sus_items) {
-    stop("The SUS has",
+    stop("The SUS has ",
          n_sus_items,
-         "items, so min_num_items must be",
+         " items, so min_num_items must be ",
          n_sus_items,
-         "or smaller.")
+         " or smaller.")
   }
 
   if(min_num_items < 1) {
