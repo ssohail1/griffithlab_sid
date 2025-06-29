@@ -58,7 +58,7 @@ check_args_score_pfdi <- function(input, transfer_vars) {
          "The items of the PFDI should be labelled:\n",
          paste(pfdi_vnames, collapse = " "),
          "\n\nThe following PFDI items were not found in the input:\n",
-         paste(pfdi_vnames, collapse = " "),
+         paste(pfdi_vnames, collapse = " "), # enter pfdi_names_not_found
          "\n\nPlease try again.",
          call. = FALSE)
   }
@@ -87,6 +87,9 @@ combine_pfdi_items <- function(item, item_a) {
 
   for (i in 1:length(item)) {
 
+    # for each item i in item if i is 0 (No) then add 0 to that item i in item_0_4
+    # if it is 1 (Yes) then add the ith item from item_a to the ith item in item_0_4
+    # otherwise NA 
     if (is.na(item[i])) {
       item_0_4[i] <- NA
     } else if (item[i] == 0) {
