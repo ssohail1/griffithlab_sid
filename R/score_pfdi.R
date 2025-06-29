@@ -41,7 +41,7 @@ score_pfdi <- function(input,
   # modify pfdi_vnames so that it can be user-specified
   # input = dataframe - rows x columns
 
-  
+  # modify so that this can be user-specified
   pfdi_vnames <-  c("pfdi_20_1", "pfdi_20_1_a",
                     "pfdi_20_2", "pfdi_20_2_a",
                     "pfdi_20_3", "pfdi_20_3_a",
@@ -106,5 +106,6 @@ score_pfdi <- function(input,
 
   # Return output
   data.frame(input[transfer_vars], popdi6, crad8, udi6, pfdi_sum)
+  # should we also return pfdi_0_4 - it has all data without the modifications.
 
 }
