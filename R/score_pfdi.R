@@ -38,6 +38,10 @@ score_pfdi <- function(input,
   check_args_score_pfdi(input = input,
                               transfer_vars = transfer_vars)
 
+  # modify pfdi_vnames so that it can be user-specified
+  # input = dataframe - rows x columns
+
+  
   pfdi_vnames <-  c("pfdi_20_1", "pfdi_20_1_a",
                     "pfdi_20_2", "pfdi_20_2_a",
                     "pfdi_20_3", "pfdi_20_3_a",
@@ -89,6 +93,7 @@ score_pfdi <- function(input,
   crad8_items <- pfdi_0_4[, 7:14]
   udi6_items <- pfdi_0_4[, 15:20]
 
+  # mean * 25 for each dataset
   popdi6 <- apply(popdi6_items, 1, function(x) mean(x, na.rm = TRUE)) * 25
   crad8 <- apply(crad8_items, 1, mean, na.rm = TRUE) * 25
   udi6 <- apply(udi6_items, 1, mean, na.rm = TRUE) * 25
