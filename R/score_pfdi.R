@@ -55,7 +55,16 @@ score_pfdi <- function(input,
 # args <- parser$parse_args()
 # ASVs_counts <- args$count
 -----------------------------------------------------------
- 
+# NOTES: 
+#add code for allowing user-specified input 
+#this will help to run the code in the terminal with -options
+#such as Rscript script.R -options = if want to have a pipeline for running data analyses
+
+#for functions = can have it so that pfdi_vnames is similar to like colnames(pfdi) or rownames(pfdi) 
+# if know pfdi datasets will have data in similar format
+
+
+  
   pfdi_vnames <-  c("pfdi_20_1", "pfdi_20_1_a",
                     "pfdi_20_2", "pfdi_20_2_a",
                     "pfdi_20_3", "pfdi_20_3_a",
