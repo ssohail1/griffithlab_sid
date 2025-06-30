@@ -56,6 +56,10 @@ two_letter_codes <- function(x = LETTERS) {
 
       p <- p + 1
 
+      # do you want to add here 
+      # condition of if first letter is not equal to second letter 
+      # then paste first and second letter together?
+
       second_letter <- second_letters[j]
 
       codes_2L[p] <- paste0(first_letter, second_letter)
