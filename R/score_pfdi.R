@@ -42,6 +42,20 @@ score_pfdi <- function(input,
   # input = dataframe - rows x columns
 
   # modify so that this can be user-specified
+  # can use argparse R package (argparse is Python library too)
+ -----------------------------------------------------------
+  ## comments    # code
+  ## create parser object for count table
+# parser <- ArgumentParser(description = 'input count table')
+  
+  ## specify our desired options 
+  ## by default ArgumentParser will add an help option 
+# parser$add_argument("-c", "--count", type=chr,
+    # help="input count table, samples are columns")
+# args <- parser$parse_args()
+# ASVs_counts <- args$count
+-----------------------------------------------------------
+ 
   pfdi_vnames <-  c("pfdi_20_1", "pfdi_20_1_a",
                     "pfdi_20_2", "pfdi_20_2_a",
                     "pfdi_20_3", "pfdi_20_3_a",
